@@ -42,7 +42,7 @@ class AuthController extends Controller
                 'name' => $user->name,
                 'email' => $user->email,
                 'role' => $user->role ? $user->role->name : null,
-                // Add other relevant user fields
+                'karyawan' => $user->karyawan
             ]
         ]);
     }
@@ -72,6 +72,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
+            'role_id' => 4
         ]);
 
         $token = auth('api')->login($user);

@@ -129,10 +129,8 @@ Route::middleware(['auth', 'role:karyawan'])->group(function () {
     });
 });
 
-Route::get('/predictions/history', [PredictionController::class, 'history'])
-    ->name('predictions.history');
-Route::get('/predictions/create', [PredictionController::class, 'create'])
-    ->name('predictions.create');
+Route::get('/predictions/history', [PredictionController::class, 'history'])->name('predictions.history');
+Route::get('/predictions/create', [PredictionController::class, 'create'])->name('predictions.create');
 
 Route::get('/test-db', function() {
     try {
