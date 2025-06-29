@@ -19,10 +19,11 @@
                                     <h3 class="text-lg font-medium text-gray-900">Absensi Karyawan Hari Ini</h3>
                                     <p class="mt-1 text-sm text-gray-500">Total karyawan yang sudah absen</p>
                                 </div>
-                                <span class="text-3xl font-bold text-blue-600">24</span>
+                                <span
+                                    class="text-3xl font-bold text-blue-600">{{ $jumlahAbsensiKaryawanHariIni ?? '0' }}</span>
                             </div>
                             <div class="mt-6">
-                                <a href="#"
+                                <a href="{{ route('absensi.index') }}"
                                     class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150">
                                     Lihat Rekap Absensi Karyawan
                                 </a>
@@ -31,23 +32,24 @@
                     </div>
 
                     <!-- Attendance Card - Manajer -->
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    {{-- <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6">
                             <div class="flex justify-between items-center">
                                 <div>
                                     <h3 class="text-lg font-medium text-gray-900">Absensi Manajer Hari Ini</h3>
                                     <p class="mt-1 text-sm text-gray-500">Total manajer yang sudah absen</p>
                                 </div>
-                                <span class="text-3xl font-bold text-indigo-600">12</span>
+                                <span
+                                    class="text-3xl font-bold text-indigo-600">{{ $jumlahAbsensiManajerHariIni ?? '0' }}</span>
                             </div>
                             <div class="mt-6">
-                                <a href="#"
+                                <a href="{{ route('absensi.index') }}"
                                     class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                                     Lihat Rekap Absensi Manajer
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <!-- Evaluation Card - Karyawan -->
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -100,12 +102,11 @@
                                     <h3 class="text-lg font-medium text-gray-900">Absensi Karyawan Hari Ini</h3>
                                     <p class="mt-1 text-sm text-gray-500">Total karyawan yang sudah absen</p>
                                 </div>
-                                <span class="text-3xl font-bold text-blue-600">
-                                    {{ $jumlahAbsensiKaryawanHariIni ?? '0' }}
-                                </span>
+                                <span
+                                    class="text-3xl font-bold text-blue-600">{{ $jumlahAbsensiKaryawanHariIni ?? '0' }}</span>
                             </div>
                             <div class="mt-6">
-                                <a href="#"
+                                <a href="{{ route('absensi.index') }}"
                                     class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150">
                                     Lihat Rekap Absensi Karyawan
                                 </a>

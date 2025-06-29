@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,11 +12,6 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
@@ -25,21 +19,11 @@ class User extends Authenticatable implements JWTSubject
         'role_id',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -48,9 +32,6 @@ class User extends Authenticatable implements JWTSubject
         ];
     }
 
-    /**
-     * Get the user's initials
-     */
     public function initials(): string
     {
         return Str::of($this->name)
@@ -59,6 +40,7 @@ class User extends Authenticatable implements JWTSubject
             ->implode('');
     }
 
+    // Relationships
     public function role()
     {
         return $this->belongsTo(Role::class);
@@ -69,6 +51,12 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasOne(Karyawan::class);
     }
 
+    public function absensi()
+    {
+        return $this->hasMany(Absensi::class);
+    }
+
+    // Role Checks
     public function isAdmin(): bool
     {
         return $this->role && $this->role->name === 'admin';
@@ -89,6 +77,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->role && $this->role->name === 'karyawan';
     }
 
+    // JWT Methods
     public function getJWTIdentifier(): mixed
     {
         return $this->getKey();

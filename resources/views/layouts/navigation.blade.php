@@ -16,6 +16,10 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('predictions.create')" :active="request()->routeIs('predictions.create')">
+                        {{ __('Prediksi') }}
+                    </x-nav-link>
+
                     @auth
                         @if (auth()->user()->isAdmin())
                             <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
@@ -115,6 +119,10 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
+            <x-responsive-nav-link :href="route('predictions.create')" :active="request()->routeIs('predictions.create')">
+                {{ __('Prediksi') }}
+            </x-responsive-nav-link>
+
             @auth
                 @if (auth()->user()->isAdmin())
                     <x-responsive-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
@@ -126,6 +134,7 @@
                     <x-responsive-nav-link :href="route('karyawan.index')" :active="request()->routeIs('karyawan.index')">
                         {{ __('Karyawan') }}
                     </x-responsive-nav-link>
+
                 @endif
 
                 @if (auth()->user()->isManajer())
@@ -136,6 +145,7 @@
                     <x-responsive-nav-link :href="route('manajer.karyawan.index')" :active="request()->routeIs('manajer.karyawan.index')">
                         {{ __('Data Karyawan') }}
                     </x-responsive-nav-link>
+
                 @endif
                 @if (auth()->user()->isHrd())
                     <x-responsive-nav-link :href="route('hrd.index')" :active="request()->routeIs('hrd.index')">
@@ -147,6 +157,7 @@
                     <x-responsive-nav-link :href="route('hrd.manajer.index')" :active="request()->routeIs('hrd.manajer.*')">
                         {{ __('Data Manajer') }}
                     </x-responsive-nav-link>
+
                 @endif
             @endauth
         </div>
