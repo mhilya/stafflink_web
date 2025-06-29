@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\PredictionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Absensi\AbsensiKaryawanController;
 use App\Http\Controllers\Hrd\HrdController;
 use App\Http\Controllers\Hrd\HrdKaryawanController;
 use App\Http\Controllers\Hrd\HrdManajerController;
@@ -139,5 +140,16 @@ Route::get('/test-db', function() {
     } catch (\Exception $e) {
         return "Connection failed: " . $e->getMessage();
     }
+});
+
+Route::middleware(['auth', 'role:manajer,hrd'])->group(function () {
+    Route::prefix('absensi')->group(function () {
+        Route::get('/', [AbsensiKaryawanController::class, 'index'])->name('absensi.index');
+        Route::get('/download', [AbsensiKaryawanController::class, 'downloadPDF'])->name('absensi.download');
+        Route::get('/{id}', [AbsensiKaryawanController::class, 'show'])->name('absensi.show');
+        Route::get('/{id}/edit', [AbsensiKaryawanController::class, 'edit'])->name('absensi.edit');
+        Route::put('/{id}', [AbsensiKaryawanController::class, 'update'])->name('absensi.update');
+        Route::delete('/{id}', [AbsensiKaryawanController::class, 'destroy'])->name('absensi.destroy');
+    });
 });
 require __DIR__.'/auth.php';

@@ -87,9 +87,11 @@ class AuthController extends Controller
      */
     public function me()
     {
+        $user = auth('api')->user()->load(['role', 'karyawan']);
+
         return response()->json([
             'status' => 'success',
-            'user' => auth('api')->user()
+            'user' => $user
         ]);
     }
 

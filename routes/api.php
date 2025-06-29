@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PredictionController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\AbsensiKaryawanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,3 +42,10 @@ Route::middleware('auth:api')->group(function() {
         Route::post('/', [PredictionController::class, 'predict'])->name('predictions.predict');
         Route::get('/stats', [PredictionController::class, 'getPromotionStats']);
     });
+
+Route::prefix('absensi')->group(function () {
+    Route::post('/', [AbsensiKaryawanController::class, 'store']);
+    Route::get('/', [AbsensiKaryawanController::class, 'index']);
+    Route::get('/check', [AbsensiKaryawanController::class, 'checkAbsen']);
+    Route::get('/bulanan', [AbsensiKaryawanController::class, 'getAbsensiBulanan'])->middleware('auth:api');
+});

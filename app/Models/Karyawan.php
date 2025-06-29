@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
 
 class Karyawan extends Model
 {
@@ -29,13 +28,26 @@ class Karyawan extends Model
         'tanggal_lahir' => 'date',
     ];
 
+    // Relationships
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function reports()
     {
         return $this->hasMany(KaryawanReport::class);
     }
-    
-    public function user()
+
+    public function absensi()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasManyThrough(
+            Absensi::class,
+            User::class,
+            'id',
+            'user_id',
+            'user_id',
+            'id' 
+        );
     }
 }
