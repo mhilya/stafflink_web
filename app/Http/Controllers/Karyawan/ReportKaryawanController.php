@@ -14,18 +14,35 @@ class ReportKaryawanController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:karyawan');
     }
 
     public function index()
-    {
+{
+    // Jika user adalah karyawan, ambil laporannya sendiri
+    if (Auth::user()->isKaryawan()) {
         $karyawan = Auth::user()->karyawan;
+
+        if (!$karyawan) {
+            return redirect()->back()->with('error', 'Data karyawan tidak ditemukan untuk user ini.');
+        }
+
         $reports = $karyawan->reports()
             ->orderBy('tanggal', 'desc')
             ->get();
-
-        return view('karyawan.reports.index', compact('reports'));
     }
+    // Jika user adalah HRD atau Manajer, tampilkan semua laporan
+    else if (Auth::user()->isHrd() || Auth::user()->isManajer()) {
+        $reports = KaryawanReport::with('karyawan')
+            ->orderBy('tanggal', 'desc')
+            ->get();
+    }
+    // Untuk role lainnya
+    else {
+        abort(403, 'Anda tidak memiliki akses ke laporan karyawan.');
+    }
+
+    return view('karyawan.reports.index', compact('reports'));
+}
 
     public function create()
     {
@@ -142,7 +159,6 @@ class ReportKaryawanController extends Controller
     {
         $this->authorize('delete', $report);
 
-        // Hapus file dokumentasi
         if ($report->dokumentasi) {
             foreach ($report->dokumentasi as $doc) {
                 Storage::disk('public')->delete($doc['path']);

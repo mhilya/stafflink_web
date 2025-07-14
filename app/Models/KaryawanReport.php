@@ -15,14 +15,17 @@ class KaryawanReport extends Model
         'karyawan_id',
         'tanggal',
         'shift',
+        'jam_masuk',
+        'jam_keluar',
         'jam_kerja',
         'pelayanan',
-        'dokumentasi'
+        'dokumentasi',
+        'catatan'
     ];
 
     protected $casts = [
         'tanggal' => 'date',
-        'dokumentasi' => 'array',
+        'dokumentasi' => 'array'
     ];
 
     public function karyawan()

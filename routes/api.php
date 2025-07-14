@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PredictionController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\AbsensiKaryawanController;
+use App\Http\Controllers\Api\ReportKaryawanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,4 +49,15 @@ Route::prefix('absensi')->group(function () {
     Route::get('/', [AbsensiKaryawanController::class, 'index']);
     Route::get('/check', [AbsensiKaryawanController::class, 'checkAbsen']);
     Route::get('/bulanan', [AbsensiKaryawanController::class, 'getAbsensiBulanan'])->middleware('auth:api');
+});
+
+Route::middleware('auth:api')->group(function () {
+    // Rute API untuk karyawan reports
+    Route::prefix('karyawan-reports')->group(function () {
+        Route::get('/', [ReportKaryawanController::class, 'index']);
+        Route::post('/', [ReportKaryawanController::class, 'store']);
+        Route::get('/{report}', [ReportKaryawanController::class, 'show']);
+        Route::put('/{report}', [ReportKaryawanController::class, 'update']);
+        Route::delete('/{report}', [ReportKaryawanController::class, 'destroy']);
+    });
 });

@@ -15,6 +15,7 @@ use App\Http\Controllers\Manajer\ManajerKaryawanController;
 use App\Http\Controllers\Penilaian\PenilaianKaryawanController;
 use App\Http\Controllers\Penilaian\PenilaianManajerController;
 use App\Http\Controllers\Karyawan\KaryawanController;
+use App\Http\Controllers\Karyawan\ReportKaryawanController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -150,6 +151,18 @@ Route::middleware(['auth', 'role:manajer,hrd'])->group(function () {
         Route::get('/{id}/edit', [AbsensiKaryawanController::class, 'edit'])->name('absensi.edit');
         Route::put('/{id}', [AbsensiKaryawanController::class, 'update'])->name('absensi.update');
         Route::delete('/{id}', [AbsensiKaryawanController::class, 'destroy'])->name('absensi.destroy');
+    });
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::prefix('karyawan/reports')->name('karyawan.reports.')->group(function () {
+        Route::get('/', [ReportKaryawanController::class, 'index'])->name('index');
+        Route::get('/create', [ReportKaryawanController::class, 'create'])->name('create');
+        Route::post('/', [ReportKaryawanController::class, 'store'])->name('store');
+        Route::get('/{report}', [ReportKaryawanController::class, 'show'])->name('show');
+        Route::get('/{report}/edit', [ReportKaryawanController::class, 'edit'])->name('edit');
+        Route::put('/{report}', [ReportKaryawanController::class, 'update'])->name('update');
+        Route::delete('/{report}', [ReportKaryawanController::class, 'destroy'])->name('destroy');
     });
 });
 require __DIR__.'/auth.php';

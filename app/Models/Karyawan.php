@@ -47,7 +47,7 @@ class Karyawan extends Model
             'id',
             'user_id',
             'user_id',
-            'id' 
+            'id'
         );
     }
 }
